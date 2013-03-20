@@ -44,6 +44,10 @@
     <string name="no_media">No media selected</string>
     <string name="context_open">Open</string>
     <string name="context_play">Play</string>
+    <string name="context_seek_forward">Seek Forward</string>
+    <string name="context_seek_backward">Seek Backward</string>
+     <string name="context_next">Next</string>
+     <string name="context_previous">Previous</string>
     <!-- Context menu to set the selected directory as the home directory -->
     <string name="menu_set_home">Set as home</string>
     <string name="context_stream">Stream</string>

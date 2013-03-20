@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="4"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="17" />
 
     <supports-screens
         android:anyDensity="true"
@@ -35,7 +35,8 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:logo="@drawable/icon"
-        android:theme="@style/Theme" >
+        android:theme="@style/Theme" 
+        android:allowBackup="true">
         <activity
             android:name=".PlaybackActivity"
             android:finishOnTaskLaunch="true"
@@ -320,6 +321,21 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/appwidget_info" />
+        </receiver>
+        
+         <receiver android:name="org.peterbaldwin.vlcremote.appwidget.SeekControlWidgetProvider" 
+             android:label="Seek sontrols for VLC">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="org.peterbaldwin.vlcremote.intent.action.MANUAL_APPWIDGET_UPDATE" />
+                <action android:name="org.peterbaldwin.vlcremote.intent.action.STATUS" />
+                <action android:name="org.peterbaldwin.vlcremote.intent.action.EXCEPTION" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/seekcontrol_appwidget_info" />
         </receiver>
 
         <service

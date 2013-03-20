@@ -303,6 +303,10 @@ public final class MediaServer {
                 public PendingIntent pendingNext() {
                     return pending(intent("command=pl_next"));
                 }
+                
+                public PendingIntent pendingSeek(String pos) {
+                    return pending(intent("command=seek&val=" + pos));
+                }
 
                 public void previous() {
                     execute("command=pl_previous");
