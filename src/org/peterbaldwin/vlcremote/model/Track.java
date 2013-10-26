@@ -123,7 +123,8 @@ public final class Track implements PlaylistItem, Serializable {
     }
 
     public void setTitle(String title) {
-        this.mTitle = title;
+        String txt = title.substring(title.lastIndexOf("\\") + 1);
+        this.mTitle = txt;
     }
 
     public String getArtist() {
@@ -163,7 +164,9 @@ public final class Track implements PlaylistItem, Serializable {
     }
 
     public void setTrack(String track) {
-        this.mTrack = track;
+        String txt = track.substring(track.lastIndexOf("/") + 1);
+        
+        this.mTrack = txt;
     }
 
     public String getDescription() {
