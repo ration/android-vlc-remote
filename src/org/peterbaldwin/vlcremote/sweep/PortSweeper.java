@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2009 Peter Baldwin   
- *  
+ *  Copyright (C) 2009 Peter Baldwin
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -17,6 +17,9 @@
 
 package org.peterbaldwin.vlcremote.sweep;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.protocol.HTTP;
+
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -24,15 +27,20 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Log;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.InetAddress;
+import java.net.ConnectException;
+import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public final class PortSweeper {
 
     public interface Callback {
-        void onHostFound(String hostname, int responseCode);
+        void onHostFound(HttpResponse response);
 
         void onProgress(int progress, int max);
     }
@@ -111,6 +119,11 @@ public final class PortSweeper {
      */
     private boolean mComplete;
 
+    /**
+     * Remember hosts for callback replay.
+     */
+    private List<HttpResponse> mFoundHosts = new ArrayList<HttpResponse>();
+
     public PortSweeper(int port, String file, int threadCount, Callback callback, Looper looper) {
         mPort = port;
         mPath = file;
@@ -138,6 +151,9 @@ public final class PortSweeper {
         if (mCallback != null) {
             // Replay progress for new callback receiver
             mCallback.onProgress(0, mMax);
+            for (HttpResponse host : mFoundHosts) {
+                mCallback.onHostFound(host);
+            }
             mCallback.onProgress(mProgress, mMax);
         }
     }
@@ -236,15 +252,14 @@ public final class PortSweeper {
     private class MyWorkerCallback implements Worker.Callback {
 
         /** {@inheritDoc} */
-        public void onReachable(InetAddress address, int port, String hostname, int responseCode) {
+        public void onReachable(byte[] ipAddress, HttpResponse response) {
             Message m = mCallbackHandler.obtainMessage(HANDLE_REACHABLE);
-            m.obj = hostname;
-            m.arg1 = responseCode;
+            m.obj = response;
             m.sendToTarget();
         }
 
         /** {@inheritDoc} */
-        public void onUnreachable(byte[] ipAddress, int port, IOException e) {
+        public void onUnreachable(byte[] ipAddress, IOException e) {
             Message m = mCallbackHandler.obtainMessage(HANDLE_UNREACHABLE);
             m.obj = e;
             m.sendToTarget();
@@ -266,15 +281,33 @@ public final class PortSweeper {
                         mMax = msg.arg2;
                         return true;
                     case HANDLE_REACHABLE:
-                        String hostname = (String) msg.obj;
-                        int responseCode = msg.arg1;
-                        Log.d(TAG, "found: " + hostname);
-                        mCallback.onHostFound(hostname, responseCode);
+                        HttpResponse response = (HttpResponse) msg.obj;
+                        Log.d(TAG, "found: " + response.getHeaders(HTTP.TARGET_HOST));
+                        mCallback.onHostFound(response);
+                        for (Iterator<HttpResponse> it = mFoundHosts.iterator(); it.hasNext();) {
+                            HttpResponse existing = it.next();
+                            if (existing.getFirstHeader(HTTP.TARGET_HOST).getValue()
+                                    .equals(response.getFirstHeader(HTTP.TARGET_HOST).getValue())) {
+                                // Remove out-of-date entry
+                                it.remove();
+                            }
+                        }
+                        mFoundHosts.add(response);
                         mProgress++;
                         return true;
                     case HANDLE_UNREACHABLE:
-                        IOException e = (IOException) msg.obj;
-                        Log.d(TAG, "unreachable", e);
+                        IOException exception = (IOException) msg.obj;
+                        try {
+                            throw exception;
+                        } catch (ConnectException e) {
+                            Log.d(TAG, e.toString());
+                        } catch (SocketException e) {
+                            Log.d(TAG, e.toString());
+                        } catch (FileNotFoundException e) {
+                            Log.w(TAG, e.toString());
+                        } catch (IOException e) {
+                            Log.w(TAG, e.toString());
+                        }
                         mProgress++;
                         return true;
                     case HANDLE_COMPLETE:

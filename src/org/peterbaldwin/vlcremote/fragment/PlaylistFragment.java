@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2011 Peter Baldwin   
- *  
+ *  Copyright (C) 2011 Peter Baldwin
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -51,7 +51,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class PlaylistFragment extends ListFragment implements
         LoaderManager.LoaderCallbacks<Remote<Playlist>> {
@@ -102,7 +101,7 @@ public class PlaylistFragment extends ListFragment implements
         registerForContextMenu(getListView());
 
         if (mMediaServer != null) {
-            getLoaderManager().initLoader(LOADER_PLAYLIST, null, this);
+            getLoaderManager().initLoader(LOADER_PLAYLIST, Bundle.EMPTY, this);
         }
     }
 
@@ -221,12 +220,6 @@ public class PlaylistFragment extends ListFragment implements
         }
     }
 
-    private void showError(CharSequence message) {
-        Context context = getActivity();
-        Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
-        toast.show();
-    }
-
     private void selectItem(PlaylistItem item) {
         mMediaServer.status().command.playback.play(item.getId());
     }
@@ -275,7 +268,6 @@ public class PlaylistFragment extends ListFragment implements
 
         if (hasError) {
             setEmptyText(getText(R.string.connection_error));
-            showError(String.valueOf(remote.error));
         } else {
             setEmptyText(getText(R.string.emptyplaylist));
         }
@@ -301,7 +293,7 @@ public class PlaylistFragment extends ListFragment implements
 
     public void reload() {
         if (mMediaServer != null) {
-            getLoaderManager().restartLoader(LOADER_PLAYLIST, null, this);
+            getLoaderManager().restartLoader(LOADER_PLAYLIST, Bundle.EMPTY, this);
         }
     }
 

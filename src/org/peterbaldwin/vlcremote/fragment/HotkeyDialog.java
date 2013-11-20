@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2011 Peter Baldwin   
- *  
+ *  Copyright (C) 2011 Peter Baldwin
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -30,7 +30,7 @@ import android.widget.AdapterView;
 public final class HotkeyDialog extends DialogFragment implements AdapterView.OnItemClickListener {
 
     private String[] mCodes;
-    
+
     private HotkeyListener mHotkeyListener;
 
     @Override
@@ -52,7 +52,7 @@ public final class HotkeyDialog extends DialogFragment implements AdapterView.On
 
         return dialog;
     }
-    
+
     public void setHotkeyListener(HotkeyListener hotkeyListener) {
         mHotkeyListener = hotkeyListener;
     }

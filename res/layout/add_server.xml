@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
 
@@ -22,23 +23,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/label_port"
             android:numeric="integer"
-            android:singleLine="true" />
-
-        <EditText
-            android:id="@+id/edit_user"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/label_user"
             android:singleLine="true"
-            android:visibility="gone" />
-
-        <EditText
-            android:id="@+id/edit_password"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/label_password"
-            android:singleLine="true"
-            android:visibility="gone" />
+            tools:ignore="Deprecated" />
     </LinearLayout>
 
 </ScrollView>

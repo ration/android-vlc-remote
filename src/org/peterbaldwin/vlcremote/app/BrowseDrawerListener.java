@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2011 Peter Baldwin   
- *  
+ *  Copyright (C) 2011 Peter Baldwin
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -20,13 +20,17 @@ package org.peterbaldwin.vlcremote.app;
 import org.peterbaldwin.client.android.vlcremote.R;
 import org.peterbaldwin.vlcremote.fragment.BrowseFragment;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SlidingDrawer;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+@SuppressWarnings("deprecation")
 final class BrowseDrawerListener implements SlidingDrawer.OnDrawerOpenListener,
         SlidingDrawer.OnDrawerCloseListener {
 

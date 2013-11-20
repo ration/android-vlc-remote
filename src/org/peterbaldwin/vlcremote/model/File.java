@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2009 Peter Baldwin   
- *  
+ *  Copyright (C) 2009 Peter Baldwin
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -24,6 +24,7 @@ import android.webkit.MimeTypeMap;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public final class File {
 
@@ -167,7 +168,7 @@ public final class File {
     public String getMimeType() {
         if (mExtension != null) {
             // See http://code.google.com/p/android/issues/detail?id=8806
-            String extension = mExtension.toLowerCase();
+            String extension = mExtension.toLowerCase(Locale.US);
             return sMimeTypeMap.getMimeTypeFromExtension(extension);
         } else {
             return null;

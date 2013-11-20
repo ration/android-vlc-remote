@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * Modifications:
  * -Connect to VLC server instead of media service
  * -Listen for VLC status events
@@ -194,7 +194,7 @@ public class MediaAppWidgetProvider extends AppWidgetProvider {
                     flags);
             views.setOnClickPendingIntent(R.id.album_appwidget, pendingIntent);
         }
-        
+
         Preferences preferences = Preferences.get(context);
         String authority = preferences.getAuthority();
         if (authority == null) {

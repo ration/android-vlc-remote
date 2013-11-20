@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2011 Peter Baldwin   
- *  
+ *  Copyright (C) 2011 Peter Baldwin
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -107,7 +107,7 @@ public class ArtFragment extends Fragment implements LoaderCallbacks<Drawable> {
         if (mMediaServer != null) {
             getLoaderManager().restartLoader(LOADER_IMAGE, Bundle.EMPTY, this);
         }
-    } 
+    }
 
     private void onStatusChanged(Status status) {
         Track track = status.getTrack();

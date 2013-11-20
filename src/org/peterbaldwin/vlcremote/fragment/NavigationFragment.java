@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2011 Peter Baldwin   
- *  
+ *  Copyright (C) 2011 Peter Baldwin
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -91,7 +91,7 @@ public class NavigationFragment extends Fragment implements View.OnTouchListener
     @SuppressWarnings("unchecked")
     private <T> T getSystemService(String name) {
         Context context = getActivity();
-        return (T) context.getSystemService(Context.VIBRATOR_SERVICE);
+        return (T) context.getSystemService(name);
     }
 
     private void vibrate() {

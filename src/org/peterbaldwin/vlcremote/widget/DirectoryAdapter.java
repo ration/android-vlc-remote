@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2011 Peter Baldwin   
- *  
+ *  Copyright (C) 2011 Peter Baldwin
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -30,6 +30,7 @@ import android.widget.SectionIndexer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DirectoryAdapter extends ArrayAdapter<File> implements SectionIndexer {
 
@@ -98,7 +99,7 @@ public class DirectoryAdapter extends ArrayAdapter<File> implements SectionIndex
         } else {
             String contentType = file.getMimeType();
             if (contentType != null) {
-                contentType = contentType.toLowerCase();
+                contentType = contentType.toLowerCase(Locale.US);
                 if (contentType.startsWith("audio/")) {
                     icon.setImageResource(R.drawable.ic_mime_audio);
                 } else if (contentType.startsWith("image/")) {

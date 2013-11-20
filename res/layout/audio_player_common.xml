@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -8,75 +8,75 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dip"
-        android:background="#ffffffff"
-        android:layout_marginBottom="1dip" />
+        android:layout_marginBottom="1dip"
+        android:background="#ffffffff" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="#ff5a5a5a"
-        
-        android:paddingTop="4dip"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="4dip" >
 
-        <include
-            layout="@layout/audio_playback_buttons" />
-
+        <include layout="@layout/audio_playback_buttons" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#ff5a5a5a"
-        android:paddingTop="1dip"
+        android:orientation="horizontal"
         android:paddingBottom="4dip"
-        android:orientation="horizontal">
+        android:paddingTop="1dip" >
 
         <TextView
             android:id="@+id/text_time"
-            android:text="0:00"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0"
+            android:paddingLeft="5dip"
             android:shadowColor="#ff000000"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="3"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0"
-            android:layout_width="wrap_content"
-            android:paddingLeft="5dip"
-            android:layout_height="wrap_content" />
+            android:text="0:00"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <SeekBar
             android:id="@+id/seek_progress"
-            android:background="#ff5a5a5a"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="#ff5a5a5a"
+            android:paddingBottom="4dip"
             android:paddingLeft="16dip"
-            android:paddingRight="16dip"
-            android:paddingBottom="4dip" />
+            android:paddingRight="16dip" />
 
         <TextView
             android:id="@+id/text_length"
-            android:text="0:00"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0"
+            android:gravity="right"
+            android:paddingRight="5dip"
             android:shadowColor="#ff000000"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="3"
-            android:gravity="right"
-            android:paddingRight="5dip"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:text="0:00"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
     </LinearLayout>
 
 </LinearLayout>

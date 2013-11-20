@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * Modifications:
  * 1. Changed package name
  * 2. Don't send change notifications unless something actually changed.
@@ -49,7 +49,7 @@ public class ProgressCategory extends PreferenceCategory {
 
     /**
      * Turn on/off the progress indicator and text on the right.
-     * 
+     *
      * @param progressOn whether or not the progress should be displayed
      */
     public void setProgress(boolean progressOn) {

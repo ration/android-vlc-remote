@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2011 Peter Baldwin   
- *  
+ *  Copyright (C) 2011 Peter Baldwin
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -183,7 +183,7 @@ public class BrowseFragment extends ListFragment implements
                 return;
             }
         }
-        
+
         // Open the list of drives if there is no parent directory entry
         openDirectory("");
     }
@@ -283,6 +283,12 @@ public class BrowseFragment extends ListFragment implements
     /** {@inheritDoc} */
     public void onLoaderReset(Loader<Remote<Directory>> loader) {
         mAdapter.setDirectory(null);
+    }
+
+    public void reload() {
+        if (mMediaServer != null) {
+            getLoaderManager().restartLoader(Data.DIRECTORY, Bundle.EMPTY, this);
+        }
     }
 
     // TODO: Automatically reload directory when connection is restored

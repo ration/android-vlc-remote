@@ -1,6 +1,6 @@
 /*-
- *  Copyright (C) 2011 Peter Baldwin   
- *  
+ *  Copyright (C) 2011 Peter Baldwin
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -18,7 +18,9 @@
 package org.peterbaldwin.vlcremote.net;
 
 import org.apache.http.Header;
+import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.HttpResponseException;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.protocol.HTTP;
 import org.peterbaldwin.vlcremote.intent.Intents;
@@ -166,11 +168,16 @@ public final class MediaServer {
             URL url = new URL(spec);
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
             try {
-                String usernamePassword = mUri.getUserInfo();
-                if (usernamePassword != null) {
-                    Header authorization = BasicScheme.authenticate(
-                            new UsernamePasswordCredentials(usernamePassword), HTTP.UTF_8, false);
+                String password = PasswordManager.get(mContext).getPassword(mUri.getAuthority());
+                if (password != null) {
+                    Credentials credentials = new UsernamePasswordCredentials("", password);
+                    Header authorization = BasicScheme.authenticate(credentials, HTTP.UTF_8, false);
                     http.setRequestProperty(authorization.getName(), authorization.getValue());
+                }
+                int responseCode = http.getResponseCode();
+                String responseMessage = http.getResponseMessage();
+                if (responseCode != HttpURLConnection.HTTP_OK) {
+                    throw new HttpResponseException(responseCode, responseMessage);
                 }
                 return (T) handler.getContent(http);
             } finally {
